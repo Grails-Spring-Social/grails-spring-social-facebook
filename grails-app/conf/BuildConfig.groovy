@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
     // excludes 'ehcache'
   }
   log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+  legacyResolve true
   repositories {
     grailsPlugins()
     grailsHome()
@@ -37,37 +38,38 @@ grails.project.dependency.resolution = {
     mavenRepo "http://maven.springframework.org/snapshot"
     mavenRepo "http://maven.springframework.org/milestone"
 
-    mavenRepo "http://repo.clickonero.com/nexus/content/repositories/snapshots/"
+    mavenRepo "http://repo.sindica.to/nexus/content/repositories/snapshots/"
     grailsRepo "http://grails.org/plugins"
 
-    grailsRepo "http://repo.clickonero.com/nexus/content/repositories/snapshots/"
   }
   dependencies {
-    def springSocialVersion = "1.1.0.M2"
-    compile("org.springframework.social:spring-social-facebook:${springSocialVersion}") { transitive = false }
+    def springSocialVersion = "1.1.0.RC1"
+    compile("org.springframework.social:spring-social-facebook:${springSocialVersion}")
 
-    compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
+   // compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
   }
   plugins {
-    compile(":springsocial-core:0.1.33-SNAPSHOT")
+    compile(":spring-social-core:0.2.0.BUILD-SNAPSHOT")
+    compile ":platform-core:1.0.RC6"
 
     /*
     This validation is for prevent load the following plugins in previous Grails versions.
     I some Grails versions from 1.3.* the 'export = false' does not work. For Grails 2.* works properly
     */
     if (grailsVersion.startsWith('2')) {
-      test(":code-coverage:1.2.5") { export = false }
-      build(":release:2.0.0") { export = false }
+      test(":code-coverage:1.2.7") { export = false }
+      build(":release:3.0.1") { export = false }
       build(":rest-client-builder:1.0.2") { export = false }
     }
   }
 }
 
-grails.project.repos.clickonero.url = "http://repo.clickonero.com/nexus/content/repositories/snapshots/"
+grails.project.repos.sindicato.url = "http://repo.sindica.to/nexus/content/repositories/snapshots/"
+grails.project.repos.default = "sindicato"
 
 grails.release.scm.enabled = false
 //grails.project.repos.default = "grailsCentral"
-grails.project.repos.default = "clickonero"
+
 
 coverage {
   exclusions = [

@@ -14,13 +14,14 @@
  */
 package grails.plugins.springsocial.config.facebook
 
+import org.grails.plugin.platform.config.PluginConfiguration
+
 import javax.inject.Inject
 
 import org.springframework.social.connect.Connection
 import org.springframework.social.connect.ConnectionFactory
 import org.springframework.social.connect.ConnectionRepository
 
-import grails.plugins.springsocial.facebook.SpringSocialFacebookUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Scope
@@ -29,23 +30,25 @@ import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import org.springframework.social.facebook.connect.FacebookConnectionFactory
 import org.springframework.util.Assert
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+
 
 @Configuration
 class FacebookConfig {
   @Inject
   ConnectionRepository connectionRepository
+  @Inject
+  PluginConfiguration pluginConfiguration
+
+
 
   @Bean
   ConnectionFactory facebookConnectionFactory() {
     println "Configuring SpringSocial Facebook"
-    //def facebookConfig = SpringSocialFacebookUtils.config.facebook
-    def facebookConfig = ConfigurationHolder.config.grails.plugins.springsocial.facebook
-
-    String clientId = facebookConfig.clientId ?: ""
-    String clientSecret = facebookConfig.clientSecret ?: ""
-    Assert.hasText(clientId, "The Facebook clientId is necessary, please add to the Config.groovy as follows: grails.plugins.springsocial.facebook.clientId='yourClientId'")
-    Assert.hasText(clientSecret, "The Facebook clientSecret is necessary, please add to the Config.groovy as follows: grails.plugins.springsocial.facebook.clientSecret='yourClientSecret'")
+    ConfigObject config =  pluginConfiguration.getPluginConfig("springsocialFacebook")
+    String clientId = config.clientId ?: ""
+    String clientSecret = config.clientSecret ?: ""
+    Assert.hasText(clientId, "The Facebook clientId is necessary, please add to the Config.groovy as follows: plugin.springsocialFacebook.clientId='yourClientId'")
+    Assert.hasText(clientSecret, "The Facebook clientSecret is necessary, please add to the Config.groovy as follows: plugin.springsocialFacebook.clientId='yourClientSecret'")
     new FacebookConnectionFactory(clientId, clientSecret)
   }
 

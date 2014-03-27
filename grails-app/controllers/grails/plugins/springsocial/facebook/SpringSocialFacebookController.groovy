@@ -27,14 +27,14 @@ class SpringSocialFacebookController {
 
   def index = {
     def model = ["profile": facebook.userOperations().getUserProfile()]
-    render(view: SpringSocialFacebookUtils.config.facebook.page.profile, model: model)
+    render(view: pluginConfig.page.profile, model: model)
   }
   def profilePhoto = {
     response.outputStream << facebook.userOperations().getUserProfileImage()
   }
   def feed = {
     def model = ['feed': facebook.feedOperations().getFeed()]
-    render(view: SpringSocialFacebookUtils.config.facebook.page.feed, model: model)
+    render(view: pluginConfig.page.feed, model: model)
   }
 
   def update = {
@@ -45,12 +45,12 @@ class SpringSocialFacebookController {
 
   def friends = {
     def model = ["friends": facebook.friendOperations().getFriendProfiles()]
-    render(view: SpringSocialFacebookUtils.config.facebook.page.friends, model: model)
+    render(view: pluginConfig.page.friends, model: model)
   }
 
   def albums = {
     def model = ["albums": facebook.mediaOperations().getAlbums()]
-    render(view: SpringSocialFacebookUtils.config.facebook.page.albums, model: model)
+    render(view: pluginConfig.page.albums, model: model)
   }
 
   def album = {
@@ -59,11 +59,11 @@ class SpringSocialFacebookController {
     model.album = facebook.mediaOperations().getAlbum(albumId)
     model.photos = facebook.mediaOperations().getPhotos(albumId)
 
-    render(view: SpringSocialFacebookUtils.config.facebook.page.album, model: model)
+    render(view: pluginConfig.page.album, model: model)
   }
 
   def login = {
-    render(view: SpringSocialFacebookUtils.config.facebook.page.connect)
+    render(view: pluginConfig.page.connect)
   }
 
   def auth() {
