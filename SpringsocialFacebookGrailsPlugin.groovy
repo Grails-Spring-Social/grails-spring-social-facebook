@@ -50,4 +50,22 @@ class SpringsocialFacebookGrailsPlugin {
     context.'component-scan'('base-package': "grails.plugins.springsocial.config.facebook")
   }
 
+  def doWithConfig = { config ->
+    springsocialFacebook {
+      page.connect = "/springsocial/facebook/connect"
+      page.profile = "/springsocial/facebook/index"
+      page.connectedHome = "/springSocialFacebook/index"
+      page.feed = "/springsocial/facebook/feed"
+      page.friends = "/springsocial/facebook/friends"
+      page.albums = "/springsocial/facebook/albums"
+      page.album = "/springsocial/facebook/album"
+
+    }
+    def doWithConfigOptions = {
+      clientId(type: String)
+      clientSecret(type: String)
+    }
+
+  }
+
 }
