@@ -1,3 +1,24 @@
+import grails.util.Environment
+
+final springSocialPluginsVersionSuffix
+
+switch(Environment.current.name.toLowerCase()) {
+
+    case ["staging", "test-jenkins"]:
+        springSocialPluginsVersionSuffix = '-SNAPSHOT'
+        break
+
+    case ["test","development"]:
+        springSocialPluginsVersionSuffix = '-SNAPSHOT'
+        grails.plugin.location.'spring-social-core' = '../grails-spring-social-core/'
+
+        break
+
+    default:
+        springSocialPluginsVersionSuffix = ''
+        break
+
+}
 /* Copyright 2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,17 +60,15 @@ grails.project.dependency.resolution = {
     mavenRepo "http://maven.springframework.org/milestone"
 
     mavenRepo "http://repo.sindica.to/nexus/content/repositories/snapshots/"
-    grailsRepo "http://grails.org/plugins"
-
   }
   dependencies {
-    def springSocialVersion = "1.1.0.RC1"
+    def springSocialVersion = "1.1.1.RELEASE"
     compile("org.springframework.social:spring-social-facebook:${springSocialVersion}")
 
    // compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
   }
   plugins {
-    compile(":spring-social-core:0.2.0.BUILD-SNAPSHOT")
+    compile(":spring-social-core:0.2.0.BUILD$springSocialPluginsVersionSuffix")
     compile ":platform-core:1.0.RC6"
 
     /*
