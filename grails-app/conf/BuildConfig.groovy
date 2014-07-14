@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
   }
   plugins {
     compile(":spring-social-core:0.2.0.BUILD-SNAPSHOT")
-    compile ":platform-core:1.0.RC6"
+    compile ":platform-core:1.0.0"
 
     /*
     This validation is for prevent load the following plugins in previous Grails versions.
