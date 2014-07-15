@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
 
   }
   dependencies {
-    def springSocialVersion = "1.1.0.RC1"
+    def springSocialVersion = "1.1.0.RELEASE"
     compile("org.springframework.social:spring-social-facebook:${springSocialVersion}")
 
    // compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
